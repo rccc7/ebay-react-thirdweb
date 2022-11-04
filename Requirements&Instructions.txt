@@ -1,0 +1,34 @@
+1. Create the app in a terminal window and install withthe official tailwind css example
+which includes typescript by default:
+    npx create-next-app -e with-tailwindcss ebay-react
+2. check whether we have installed the tailwind css intellisense editor:
+ In VS Code > extensions> look for Tailwindcss Intellisense
+3. Check whether we have the ES7 native snipets extension installed:
+    In VS Code > extensions look for ES7+ React/Redux/React-Native snippets
+4. Install thirdweb react sdk see (https://portal.thirdweb.com/react)
+    npm install @thirdweb-dev/react @thirdweb-dev/sdk ethers
+5. configure the thirdweb provider tat the root of the application as described in the 
+link: https://portal.thirdweb.com/react . Note: The file we need to modify is "_app.tsx"
+6. Create the utils folder inside which we'll create useful functions that we'll use later.
+7. Create the folder components where we'll create the component files
+    the shorctu to create a typscript functional component is: trsfce
+8. Install heroicons from heroicons.com
+    npm install @heroicons/react
+9. To create products in the NFT collections follow this procedure:
+    - 9.1 In ebay-nft-collection go to NFTs and click on the  "+ Mint" button and register
+    the new product i.e. Laptop with name, picture and a description.
+    - 9.2 In our NFT marketplace Ebay-react create a listing by going to "Listings" tab/link,
+    then click on "+ Create Listing" button and register the new listing by selecting
+    one of the products we created in the step above (i.e. Laptop), select Direct listing
+    as type, as concurrency Sonny sugests to use Matic (Polygon), but if it is not available,
+    we can use ETH (Etherum). This currency must mutch with the currency 
+    we use in the code. For the listing price select a relatively very small price so 
+    that we don't run out of our test currency when testing.
+10. Create the .env.local file to save the environmental variables. This file will contain the 
+addresses of the marketplace and nft collection
+11. Upload to Github and deploy to Vercel
+    11.1 Create the github repository ebay-react-thirdweb and execute 
+    the following commands from terminal:
+        git remote add origin https://github.com/rccc7/ebay-react-thirdweb.git
+        git branch -M main
+        git push -u origin main

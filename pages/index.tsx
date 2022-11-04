@@ -1,84 +1,88 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
+import { BanknotesIcon, ClockIcon } from "@heroicons/react/24/outline";
+import {
+  useActiveListings,
+  useContract,
+  MediaRenderer
+} from "@thirdweb-dev/react";
+import { ListingType } from "@thirdweb-dev/sdk";
+import Header from '../components/Header'
 
-const Home: NextPage = () => {
+const Home = () => {
+  const { contract } = useContract(
+    process.env.NEXT_PUBLIC_MARKETPLACE_CONTRACT,
+    'marketplace');
+
+  // Obtain the listings from our marketplace
+  const { data: listings, isLoading: loadingListings } =
+    useActiveListings(contract);
+
+  console.log(listings)
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div className=" ">
 
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="rounded-md bg-gray-100 p-3 font-mono text-lg">
-            pages/index.tsx
-          </code>
-        </p>
-
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and its API.
+      {/* <h1 className='border-gray-400 '>hi there, lets build ebay</h1> */}
+      <Header />
+      {/* Set the max width of the main to 1152px 
+      mx-auto is to center*/}
+      <main className="max-w-6xl mx-auto px-6 py-2">
+        {
+          loadingListings ? (
+            <p className="text-center animate-pulse text-blue-500">
+              Loading listings...
             </p>
-          </a>
+          ) :
+            (
+              // NOTE: mx-auto is to center
+              <div className="grid grid-cols-1 sm:grid-cols-2 
+              md:grid-cols-3 lg:grid-cols-4 gap-5 mx-auto">
 
-          <a
-            href="https://nextjs.org/learn"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+                {/* {listings?.map(l => (<p key={l.id}>{l.asset.name}</p>))} */}
+                {listings?.map((listing) => (
+                  <div
+                    key={listing.id}
+                    className="flex-col card hover:scale-105 
+                    transition-all duration-150 ease-out">
+                    <div className="flex flex-1 flex-col pb-2 items-center">
+                      <MediaRenderer className="h-44" src={listing.asset.image} />
+                    </div>
+                    <div>
+                      <div className="pt-2 space-y-4">
+                        <h2 className="text-lg truncate">{listing.asset.name}</h2>
+                        <hr />
+                        {/* Truncate if description becomes too lonkg */}
+                        <p className="truncate text-sm text-gray-200 mt-2">
+                          {listing.asset.description}
+                        </p>
+                      </div>
+                      <p>
+                        <span className="font-bold">
+                          {listing.buyoutCurrencyValuePerToken.displayValue}
+                        </span>
+                        {" " + listing.buyoutCurrencyValuePerToken.symbol}
+                      </p>
+                      {/* w-fit -> width: fit-content */}
+                      <div className={`flex items-center space-x-1 justify-end 
+                      text-xs border w-fit ml-auto rounded-lg p-2
+                       text-white ${listing.type === ListingType.Direct ? "bg-blue-500" : "bg-red-500"}`}>
+                        <p>
+                          {listing.type === ListingType.Direct ?
+                            "Buy Now"
+                            : "Auction"
+                          }
+                        </p>
+                        {listing.type === ListingType.Direct ? (
+                          <BanknotesIcon className="h-4" />
+                        ) : (
+                          <ClockIcon className="h-4" />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )
+        }
       </main>
-
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center gap-2"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </a>
-      </footer>
     </div>
   )
 }
