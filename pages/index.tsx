@@ -50,7 +50,7 @@ const Home = () => {
                         <h2 className="text-lg truncate">{listing.asset.name}</h2>
                         <hr />
                         {/* Truncate if description becomes too lonkg */}
-                        <p className="truncate text-sm text-gray-200 mt-2">
+                        <p className="truncate text-sm text-gray-700 mt-2">
                           {listing.asset.description}
                         </p>
                       </div>

@@ -32,3 +32,13 @@ addresses of the marketplace and nft collection
         git remote add origin https://github.com/rccc7/ebay-react-thirdweb.git
         git branch -M main
         git push -u origin main
+        git status
+        git add -A
+        git commit -m 'Update the just created repository with changes made by RCCC'
+        git push
+    11.2 In Vercel, click add new project and select this project from the list
+    by selecting the option to import from github.
+        -In the options above th "Deploy" button there is the option for setting up 
+        the environment variables. In that option add the variales saved in the .env.local
+        file and their corresponding values
+        - Click deploy and if everything was right, we'll get a link to the deployed version.
