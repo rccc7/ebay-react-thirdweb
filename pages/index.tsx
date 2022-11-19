@@ -5,9 +5,12 @@ import {
   MediaRenderer
 } from "@thirdweb-dev/react";
 import { ListingType } from "@thirdweb-dev/sdk";
+import Link from "next/link";
+import { Router, useRouter } from "next/router";
 import Header from '../components/Header'
 
 const Home = () => {
+  const router = useRouter();
   const { contract } = useContract(
     process.env.NEXT_PUBLIC_MARKETPLACE_CONTRACT,
     'marketplace');
@@ -38,10 +41,25 @@ const Home = () => {
 
                 {/* {listings?.map(l => (<p key={l.id}>{l.asset.name}</p>))} */}
                 {listings?.map((listing) => (
+                  // In order to dinamically access the listings based on their id,
+                  //we'll create a folder "listing" and inside that folder the file
+                  //"[listingId].tsx" -->This is the way that we can access dinamically 
+                  //in Next.js
+
+                  //We'll no longer use the link component. We'll add the onClick
+                  //event to the div 
+                  // <Link
+                  //   key={listing.id}
+                  //   // href={`/listing/${listing.id}`}
+                  // >
+
                   <div
                     key={listing.id}
+                    // href={`/listing/${listing.id}`}
+                    onClick={() => router.push(`/listing/${listing.id}`)}
                     className="flex-col card hover:scale-105 
-                    transition-all duration-150 ease-out">
+                    transition-all duration-150 ease-out"
+                  >
                     <div className="flex flex-1 flex-col pb-2 items-center">
                       <MediaRenderer className="h-44" src={listing.asset.image} />
                     </div>

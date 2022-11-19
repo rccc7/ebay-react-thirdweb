@@ -42,3 +42,8 @@ addresses of the marketplace and nft collection
         the environment variables. In that option add the variales saved in the .env.local
         file and their corresponding values
         - Click deploy and if everything was right, we'll get a link to the deployed version.
+12. Install react-countdown to display the aution remaining time: react-countdown npm
+    npm install react-countdown
+13. Install react-hot-toast, the best notification for react. See documentation at:
+https://react-hot-toast.com/
+    npm i react-hot-toast
