@@ -153,7 +153,8 @@ function ListingPage() {
 
         //Check whether the required elements are correctly loaded
         if (!listingId || !contract || !listing || !buyNow) return;
-
+        //INitiate a toast loading:
+        const toastId = toast.loading('Please wait...');
         await buyNow({
             id: listingId,
             buyAmount: 1,
@@ -163,21 +164,27 @@ function ListingPage() {
             //the results:
             {
                 onSuccess(data, variables, context) {
-                    alert('NFT bought successfully!');
+                    // alert('NFT bought successfully!');
                     console.log('SUCCESS on Buying ', data);
                     //Here, we are using the replece calling instead of
                     //push('/') because we should close the listing. Therefore,
                     //the user won't be able to go back with the back button
                     router.replace('/');
+                    toast.dismiss(toastId);
+                    toast.success('NFT bought successfully!');
                 },
                 onError(error, variables, context) {
-                    alert('ERROR: NFT could not be bought');
+                    // alert('ERROR: NFT could not be bought');
                     console.log('ERROR: ', error, variables, context);
+                    toast.dismiss(toastId);
+                    toast.error('ERROR: NFT could not be bought');
                 },
             });
+        // buyNft().
     }
 
     const createBidOrOffer = async () => {
+        let toastId = toast.loading('Please wait...');
         // alert('the bid offer' + bidAmount)
         try {
             if (networkMismatch) {
@@ -201,6 +208,7 @@ function ListingPage() {
 
                 //Make an offer
                 console.log('Buyout price not met, making offer...');
+
                 await makeOffer({
                     quantity: 1,
                     listingId,
@@ -210,15 +218,19 @@ function ListingPage() {
                         //this hook uses tanstack's react-query library:  https://tanstack.com/query/v4/docs/reference/useQuery?from=reactQueryV3&original=https://react-query-v3.tanstack.com/reference/useQuery
                         //that is why have these events: onSuccess, onError, etc.
                         onSuccess(data, variables, context) {
-                            alert('Offer made successfully');
+                            // alert('Offer made successfully');
                             console.log('SUCCESS', data, variables, context);
                             //Update the state of the bidAmount:
                             setBidAmount('');
+                            toast.dismiss(toastId);
+                            toast.success('Offer made successfully!');
                             // router.replace('/');
                         },
                         onError(error, variables, context) {
-                            alert('ERROR: Offer could not be made');
+                            // alert('ERROR: Offer could not be made');
                             console.log('ERROR>', error, variables, context);
+                            toast.dismiss(toastId);
+                            toast.error('ERROR: Offer culd not be made');
                         },
                     }
                 )
@@ -233,6 +245,7 @@ function ListingPage() {
                 }, {
                     onSuccess(data, variables, context) {
                         // alert('Bid made successfully!');
+                        toast.dismiss(toastId);
                         toast.success('Bid made successfully');
                         console.log('BID Success>', data, variables, context);
                         //Update the state of the bidAmount:
@@ -240,13 +253,16 @@ function ListingPage() {
                     },
                     onError(error, variables, context) {
                         // alert('ERROR: Bid could not be made');
+                        toast.dismiss(toastId);
                         toast.error('ERROR: Bid could not be made');
                         console.log('ERROR on making hthe bid', error, variables, context);
                     },
                 })
             }
         } catch (error) {
-            alert('An error ocurred when trying to create a bid offer.')
+            toast.dismiss(toastId);
+            toast.error('An error ocurred when trying to create a bid offer. Please call the administrator')
+            // alert('An error ocurred when trying to create a bid offer.')
             console.log('Error when trying to create a bid offer>>>', error);
         }
     }

@@ -13,6 +13,7 @@ import {
 import { ChainId, NFT, NATIVE_TOKENS, NATIVE_TOKEN_ADDRESS } from '@thirdweb-dev/sdk'
 import network from '../utils/network'
 import { useRouter } from 'next/router'
+import toast, { Toaster } from 'react-hot-toast'
 
 type Props = {}
 
@@ -85,6 +86,8 @@ function Create({ }: Props) {
 
         const { listingType, price } = target.elements;
 
+        let toastId = toast.loading('Please wait while preparing the Listing...')
+
         if (listingType.value === 'directListing') {
             createDirectListing({
                 //this is the collection address
@@ -101,12 +104,16 @@ function Create({ }: Props) {
             }, { //the options to return
                 onSuccess(data, variables, context) {
                     console.log('SUCCESS:>>', data, variables, context)
+                    toast.dismiss(toastId);
+                    toast.success('Listing created!')
                     //After success redirect the user to the homescreen
                     router.push('/')
                 },
                 onError(error, variables, context) {
                     console.log('ERROR:>>', error, variables, context);
-                    alert('An error ocurred. It was not possible to create the listing.' + error);
+                    toast.dismiss(toastId);
+                    toast.error('ERROR: An error ocurred. It was not possible to create the listing.');
+                    // alert('An error ocurred. It was not possible to create the listing.' + error);
                 },
             })
         }
@@ -126,10 +133,14 @@ function Create({ }: Props) {
             }, {
                 onSuccess(data, variables, context) {
                     console.log('SUCCESS:>>', data, variables, context);
+                    toast.dismiss(toastId)
+                    toast.success('Auction Listing created')
                     router.push('/');
                 },
                 onError(error, variables, context) {
                     console.log('ERROR while creating the action listing:>>', error, variables, context);
+                    toast.dismiss(toastId);
+                    toast.error('ERROR while create the acution listing')
                 },
             });
         }
@@ -204,6 +215,9 @@ function Create({ }: Props) {
                     </form>
                 )}
             </main>
+            <div>
+                <Toaster />
+            </div>
         </div>
     )
 }

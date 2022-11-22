@@ -2,6 +2,7 @@ import React, { FormEvent, useState } from 'react'
 import Header from '../components/Header'
 import { useAddress, useContract } from '@thirdweb-dev/react';
 import { useRouter } from 'next/router';
+import toast, { Toaster } from 'react-hot-toast';
 
 type Props = {}
 
@@ -49,9 +50,19 @@ function AddItem({ }: Props) {
             image: image, //image URL or a file
         }
 
+        let toastId = toast.loading('Adding item...');
+
         try {
+
+
+
             //tx: Transaction
             const tx = await contract.mintTo(address, metatada);
+
+            toast.dismiss(toastId);
+            toast.success('Item added sucessfully!');
+
+
 
             //Now, get a few details of the transaction
             const receipt = tx.receipt; //the transaction receipt
@@ -67,6 +78,8 @@ function AddItem({ }: Props) {
 
         } catch (error) {
             console.log('An error ocurred:>>>', error);
+            toast.dismiss(toastId);
+            toast.error('Item not added');
         }
     }
 
@@ -112,6 +125,9 @@ function AddItem({ }: Props) {
                     </form>
                 </div>
             </main>
+            <div>
+                <Toaster />
+            </div>
         </div>
     )
 }

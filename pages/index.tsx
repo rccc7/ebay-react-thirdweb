@@ -7,6 +7,7 @@ import {
 import { ListingType } from "@thirdweb-dev/sdk";
 import Link from "next/link";
 import { Router, useRouter } from "next/router";
+import Footer from "../components/Footer";
 import Header from '../components/Header'
 
 const Home = () => {
@@ -101,6 +102,7 @@ const Home = () => {
             )
         }
       </main>
+      <Footer />
     </div>
   )
 }
