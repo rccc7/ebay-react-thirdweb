@@ -1,4 +1,4 @@
-# eBay-react + ThirdWeb
+# EBay-react + ThirdWeb
 
 eBay-like portal. Demo page similar to eBay UI that simulates the purchase and sale procedure but with NFTs instead of items and cryptocurrency instead of money. Users can log in using their Metamask crypto wallet account. Once logged in, the user can start mining ("Add to Inventory" option) and list their NFTs with the options of "Buy Now" or list them as an "Auction". Then users can purchase or bid the listed items.
 
@@ -13,14 +13,17 @@ See it in action: https://ebay-react-thirdweb.vercel.app
 ## Technologies:
 
 This example shows how to use the following technologies, components and services:
-- React.js.
-- Next.js.
+- [React.js](https://reactjs.org/), the best JavaScript library for building user interfaces.
+- [Next.js](https://nextjs.org/), one of the best and complete framework for react.js application.
+- [Vercel](https://vercel.com/) free account to deploy and host the application.
 - [Tailwind CSS](https://tailwindcss.com/).
-- [Thirdweb react](https://portal.thirdweb.com/react) to test the usage of NFTs in transactions.
+- [Thirdweb react SDK](https://portal.thirdweb.com/react) to test the usage of NFTs and cryptocurrencies transactions in React.
 - [Heroicons](https://heroicons.com).
 - [React-hot-toast](https://react-hot-toast.com/), one of the best notification and easy to use component for react.
 
+## Disclaimer
 
+This is just a demo project with the intention of test and practice with the latest Next.js framework feactures for React as well as for testing the [Thirdweb react SDK](https://portal.thirdweb.com/react).
 
 ## Deploy your own
 
