@@ -1,6 +1,26 @@
-# Next.js + Tailwind CSS Example
+# eBay-react + ThirdWeb
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+eBay-like portal. Demo page similar to eBay UI that simulates the purchase and sale procedure but with NFTs instead of items and cryptocurrency instead of money. Users can log in using their Metamask crypto wallet account. Once logged in, the user can start mining ("Add to Inventory" option) and list their NFTs with the options of "Buy Now" or list them as an "Auction". Then users can purchase or bid the listed items.
+
+See it in action: https://ebay-react-thirdweb.vercel.app
+
+## Screenshots:
+
+<div align="center">
+  <img src="screenshots/Ebay-react.jpg" alt="screenshot" width="700" style="width:700px;"/>
+</div>
+
+## Technologies:
+
+This example shows how to use the following technologies, components and services:
+- React.js.
+- Next.js.
+- [Tailwind CSS](https://tailwindcss.com/).
+- [Thirdweb react](https://portal.thirdweb.com/react) to test the usage of NFTs in transactions.
+- [Heroicons](https://heroicons.com).
+- [React-hot-toast](https://react-hot-toast.com/), one of the best notification and easy to use component for react.
+
+
 
 ## Deploy your own
 
