@@ -1,4 +1,4 @@
-1. Create the app in a terminal window and install withthe official tailwind css example
+1. Create the app in a terminal window and install with the official tailwind css example
 which includes typescript by default:
     npx create-next-app -e with-tailwindcss ebay-react
 2. check whether we have installed the tailwind css intellisense editor:
