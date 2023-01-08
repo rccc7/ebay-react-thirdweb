@@ -23,7 +23,7 @@ This example shows how to use the following technologies, components and service
 
 ## Disclaimer
 
-This is just a demo project with the intention of test and practice with the latest Next.js framework feactures for React as well as for testing the [Thirdweb react SDK](https://portal.thirdweb.com/react).
+This is only a demo application with the intention of testing and practicing the latest Next.js framework feactures for React as well as for testing the [Thirdweb react SDK](https://portal.thirdweb.com/react).
 
 ## Deploy your own
 
