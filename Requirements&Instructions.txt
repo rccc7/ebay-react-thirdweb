@@ -7,11 +7,19 @@ which includes typescript by default:
     In VS Code > extensions look for ES7+ React/Redux/React-Native snippets
 4. Install thirdweb react sdk see (https://portal.thirdweb.com/react)
     npm install @thirdweb-dev/react @thirdweb-dev/sdk ethers
-5. configure the thirdweb provider tat the root of the application as described in the 
+    4.1 20231014 IMPORTANT UPDATE: Starting August 1st 2023, API keys are required to use thirdweb services. Therefore, 
+    it is necessary to make some apdaptation in order to add the API key For more info head over to: 
+        https://blog.thirdweb.com/changelog/api-keys-to-access-thirdweb-infra
+    - After obtaining the new API key it is necessary to update the third web to the latest version:
+        npm i @thirdweb-dev/react @thirdweb-dev/sdk ethers@^5
+5. configure the thirdweb provider at the root of the application as described in the 
 link: https://portal.thirdweb.com/react . Note: The file we need to modify is "_app.tsx"
+    5.1. 20231014 UPDATE: Configure the API key in the environment and make the necessary changes as 
+        described in this link:
+        https://portal.thirdweb.com/react/react.thirdwebprovider
 6. Create the utils folder inside which we'll create useful functions that we'll use later.
 7. Create the folder components where we'll create the component files
-    the shorctu to create a typscript functional component is: trsfce
+    the shortcut to create a typscript functional component is: trsfce
 8. Install heroicons from heroicons.com
     npm install @heroicons/react
 9. To create products in the NFT collections follow this procedure:
@@ -47,3 +55,6 @@ addresses of the marketplace and nft collection
 13. Install react-hot-toast, the best notification for react. See documentation at:
 https://react-hot-toast.com/
     npm i react-hot-toast
+14. 20231113 update: More info about how to implement MarketplaceV3 auctionListings:
+    https://youtu.be/8FRm_efm99o?t=3745
+    Watch The whole video "How to create a NFT marketplace - Buy, Sell, and Auction": https://youtu.be/8FRm_efm99o?

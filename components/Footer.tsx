@@ -18,7 +18,7 @@ function Footer({}: Props) {
       </p>
       <h1 className="font-bold">Disclaimer</h1>
       <h1>
-        Ebay Logo obtained from{" "}
+        Ebuy Logo based on original eBay Logo obtained from{" "}
         <a
           className="text-blue-500"
           target="blank"

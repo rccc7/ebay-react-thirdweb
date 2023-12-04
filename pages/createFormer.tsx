@@ -1,3 +1,4 @@
+// Former version of create component. No longer supported after added the new features to suppor latest version of thirdweb.
 import React, { FormEvent, useState } from "react";
 import Header from "../components/Header";
 import {
@@ -29,7 +30,7 @@ function Create({}: Props) {
   //We need to make a connection with the marketplace of our contract
   const { contract } = useContract(
     process.env.NEXT_PUBLIC_MARKETPLACE_CONTRACT,
-    "marketplace-v3"
+    "marketplace"
   );
 
   //Print the contract
@@ -57,8 +58,7 @@ function Create({}: Props) {
 
   const {
     // here we rename the 'mutate' returned variable by 'createDirectListing'
-    mutateAsync: createDirectListing,
-
+    mutate: createDirectListing,
     isLoading,
     error,
   } = useCreateDirectListing(contract);
@@ -67,7 +67,7 @@ function Create({}: Props) {
     //Here, we rename the block scope variables isLoading and error
     // so that thy will not conflict with the previous variables
     // defined with useCreateDirectListing
-    mutateAsync: createAuctiontListing,
+    mutate: createAuctiontListing,
     isLoading: isLoadingAuction,
     error: errorAuction,
   } = useCreateAuctionListing(contract);
@@ -94,15 +94,6 @@ function Create({}: Props) {
 
     const { listingType, price } = target.elements;
 
-    if (
-      !price.value ||
-      // !(typeof price.value === "number") ||
-      parseFloat(price.value) <= 0
-    ) {
-      alert("You must enter a valid price");
-      return;
-    }
-
     let toastId = toast.loading("Please wait while preparing the Listing...");
 
     if (listingType.value === "directListing") {
@@ -113,16 +104,11 @@ function Create({}: Props) {
           //the address is definetively that value (not null)
           assetContractAddress: process.env.NEXT_PUBLIC_NFT_CONTRACT!,
           tokenId: selectedNft.metadata.id,
-          pricePerToken: price.value,
           //This is an address that resembles matic
           currencyContractAddress: NATIVE_TOKEN_ADDRESS,
-          isReservedListing: false,
-          // endTimestamp: new Date(
-          //   new Date().getTime() + 7 * 24 * 60 * 60 * 1000
-          // ),
-          // listingDurationInSeconds: 60 * 60 * 24 * 7, //1 WEEK
+          listingDurationInSeconds: 60 * 60 * 24 * 7, //1 WEEK
           quantity: 1,
-          //   buyoutPricePerToken: price.value,
+          buyoutPricePerToken: price.value,
           startTimestamp: new Date(),
         },
         {
@@ -152,18 +138,13 @@ function Create({}: Props) {
       createAuctiontListing(
         {
           assetContractAddress: process.env.NEXT_PUBLIC_NFT_CONTRACT!,
-          buyoutBidAmount: price.value,
-          minimumBidAmount: Number(price.value) / 4, //Divide by 4 the original price to assign the minimum bid amount.
+          buyoutPricePerToken: price.value,
           tokenId: selectedNft.metadata.id,
           startTimestamp: new Date(),
-          endTimestamp: new Date(
-            new Date().getTime() + 7 * 24 * 60 * 60 * 1000 //1 week
-          ),
           currencyContractAddress: NATIVE_TOKEN_ADDRESS,
-          // listingDurationInSeconds: 60 * 60 * 24 * 7, //7 days.
+          listingDurationInSeconds: 60 * 60 * 24 * 7, //7 days.
           quantity: 1,
-          // reservePricePerToken: 0,
-          // bidBufferBps
+          reservePricePerToken: 0,
         },
         {
           onSuccess(data, variables, context) {
@@ -174,13 +155,13 @@ function Create({}: Props) {
           },
           onError(error, variables, context) {
             console.log(
-              "ERROR while creating the auction listing:>>",
+              "ERROR while creating the action listing:>>",
               error,
               variables,
               context
             );
             toast.dismiss(toastId);
-            toast.error("ERROR while create the auction listing");
+            toast.error("ERROR while create the acution listing");
           },
         }
       );
