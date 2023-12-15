@@ -1,6 +1,6 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
+import { ChainId, ThirdwebProvider, metamaskWallet } from "@thirdweb-dev/react";
 import network from "../utils/network";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -21,6 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ThirdwebProvider
       activeChain={network}
       clientId={process.env.NEXT_PUBLIC_THIRDWEB_API_CLIENTID}
+      supportedWallets={[metamaskWallet()]}
       // clientId="adfasdfadfasd"
       // clientId={undefined}
     >

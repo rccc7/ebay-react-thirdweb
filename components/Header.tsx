@@ -1,5 +1,11 @@
 import React from "react";
-import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
+import {
+  ChainId,
+  ConnectWallet,
+  useAddress,
+  useDisconnect,
+  useMetamask,
+} from "@thirdweb-dev/react";
 import Link from "next/link";
 import {
   BellIcon,
@@ -9,6 +15,7 @@ import {
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import ebuy_logo from "../public/images/ebuy_logo.png";
+import network from "../utils/network";
 
 type Props = {};
 
@@ -23,19 +30,27 @@ function Header({}: Props) {
       {/* We add the nav section to encapsulate the top portion */}
       <nav className="flex justify-between">
         <div className=" flex items-center space-x-2 text-sm">
-          {address ? (
+          {/* This button will no longer be available because the connectToMetamask hook
+           does not work well with the new version of thirdweb */}
+          {/* {address ? (
             // Show just the first 5 characters and the last 4 characters with slice
             <button onClick={disconnect} className="connectWalletBtn">
               Hi, {address.slice(0, 5) + "..." + address.slice(-4)}
             </button>
           ) : (
             <button
-              onClick={() => connectWithMetamask()}
+              onClick={() => connectWithMetamask({ chainId: network })}
               className="connectWalletBtn"
             >
               Connect your wallet
             </button>
-          )}
+          )} */}
+          {/* Added this component to replace the former button since the connectWithMetamask hook is not working
+          properly, and when there is no Metamask extension installed the button simply does not respond.  */}
+          <ConnectWallet
+            // className="connectWalletBtn"
+            dropdownPosition={{ side: "bottom", align: "center" }}
+          />
           {/* Note: inline-flex is the same as flex */}
           <p className="headerLink">Daily Deals</p>
           <p className="headerLink">Help & Contact</p>
